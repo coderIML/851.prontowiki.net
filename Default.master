@@ -1,0 +1,114 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Default.master.cs" Inherits="ProntoWiki.MasterPage" %>
+<%@ register tagprefix="wiki" tagname="Search" src="Controls\search.ascx" %>
+<%@ register TagPrefix="wiki" TagName="DisplayModeMenu" Src="Controls\DisplayModeMenu.ascx" %>
+<%@ register TagPrefix="wiki" TagName="TopTen" Src="Controls\TopTen.ascx" %>
+<%@ Register TagPrefix="wiki" TagName="SiteNav" Src="Controls\WikiSiteNav.ascx" %>
+<%@ Register TagPrefix="wiki" TagName="Login" Src="Controls\WikiLogin.ascx" %>
+<%@ Register TagPrefix="wiki" TagName="GoToPage" Src="Controls\GoToPage.ascx" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head runat="server">
+    <title>Untitled Page</title>
+    <script src="js/EditFunctions.js"></script>
+    <script src="js/AjaxCore.js"></script>
+    <script src="js/TagFunctions.js"></script>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <input type="hidden" name="__CALLBACKRESPONSE" id="__CALLBACKRESPONSE" value="" />
+    <asp:WebPartManager ID=mgrMaster runat=server> 
+        <Personalization Enabled=true InitialScope=shared />   
+    </asp:WebPartManager>
+    
+    <table width=100% height=100% cellpadding=0 cellspacing=0>
+        <tr align=center>
+            <td width=100% colspan=3>
+                <div class=pagehead id=divHeader>
+                <h1 align=left><asp:Label ID=lblHeader runat=server></asp:Label></h1>
+                </div>
+            </td>
+        </tr>
+        <tr >
+            <td align=right colspan=3 class=headerbar>
+                <wiki:SiteNav id=nav1 runat=server></wiki:SiteNav>                            
+                <asp:LoginStatus id=loginStatus1 runat=server />
+            </td>
+        </tr>
+        <tr height=100%>
+            <td colspan=3>
+                <table>
+                    <tr valign=top>                    
+                        <td valign=top>
+                            <asp:WebPartZone ID=wpzLeftTop runat=server                                 
+                                HeaderText="Top Left"
+                                CloseVerb-Visible=false >
+                                <ZoneTemplate>                    
+    
+                                </ZoneTemplate>                                
+                            </asp:WebPartZone>
+
+                        </td>                       
+                        <td valign=top width=100%>
+                            <div>
+                                <asp:contentplaceholder id="ContentPlaceHolder1" runat="server">
+                                </asp:contentplaceholder>
+                            </div>
+                        </td>                        
+                        <td valign=top>
+                            <wiki:DisplayModeMenu ID=DisplayMenu1 runat=server />
+
+                            <asp:catalogzone id="CatalogZone1" runat="server" 
+                              headertext="Add Web Parts">
+                              <zonetemplate>
+                                <asp:declarativecatalogpart id="catalogpart1" 
+                                  runat="server" Title="My Catalog">
+                                  <webPartsTemplate>
+                                     <wiki:Search ID=wikiSearch1 runat=server Title="Search" />
+                                     <wiki:TopTen id=wikiTopTen1 runat=server Title="Top Ten"></wiki:TopTen>                                     
+                                     <wiki:Login id=wikiLogin1 runat=server Title="Sign In"></wiki:Login> 
+                                     <wiki:GoToPage ID=wikiGoTo1 runat=server Title="Go To Page" />                                                                                                              
+                                  </webPartsTemplate>
+                                </asp:declarativecatalogpart>
+                              </zonetemplate>
+                            </asp:catalogzone>
+                            
+                            <asp:WebPartZone ID=wpzRightTop runat=server 
+                                HeaderText="Top Right" 
+                                CloseVerb-Visible=false>
+                            </asp:WebPartZone>                            
+                        </td>
+                    </tr>                                
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <asp:WebPartZone ID=wpzLeftBottom runat=server                                 
+                    HeaderText="Bottom Left"
+                    CloseVerb-Visible=false >                               
+                </asp:WebPartZone>
+            </td>            
+            <td align=center>
+                <asp:WebPartZone ID=wpzCenterBottom runat=server                                 
+                    HeaderText="Bottom Center"
+                    CloseVerb-Visible=false >                               
+                </asp:WebPartZone>            
+            </td>            
+            <td align=right>
+                <asp:WebPartZone ID=wpzRightBottom runat=server                                 
+                    HeaderText="Bottom Right"
+                    CloseVerb-Visible=false >                               
+                </asp:WebPartZone>            
+            </td>
+        </tr>
+        <tr>
+            <td colspan=3 align=center>
+                <asp:Literal ID=litFooter runat=server></asp:Literal>                
+            </td>
+        </tr>
+    </table>
+    </form>
+</body>
+</html>
